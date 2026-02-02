@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Varad Alshi - CV</title>
+    <title>Varad Alshi - Portfolio</title>
     <style>
         * {
             margin: 0;
@@ -11,61 +11,99 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-dark);
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
+            background: var(--bg-white);
+            border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
+        /* Header Section */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
             color: white;
-            padding: 60px 40px;
-            text-align: center;
+            padding: 60px 50px;
             position: relative;
+            overflow: hidden;
         }
 
-        .header::after {
+        .header::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
+            font-size: 3.5em;
             font-weight: 700;
-            letter-spacing: 2px;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
         }
 
-        .tagline {
-            font-size: 1.2em;
-            opacity: 0.9;
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
             font-weight: 300;
+            margin-bottom: 25px;
         }
 
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-item::before {
+            content: '●';
+            color: var(--accent);
+        }
+
+        /* Main Content */
         .content {
-            padding: 50px 40px;
+            padding: 50px;
         }
 
         .section {
-            margin-bottom: 50px;
+            margin-bottom: 55px;
         }
 
         .section:last-child {
@@ -74,10 +112,11 @@
 
         h2 {
             font-size: 2em;
-            margin-bottom: 25px;
-            color: #667eea;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 12px;
+            font-weight: 700;
         }
 
         h2::after {
@@ -85,125 +124,274 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 2px;
         }
 
-        .education-info {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 25px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }
-
-        .education-info h3 {
-            color: #667eea;
-            margin-bottom: 8px;
-            font-size: 1.3em;
-        }
-
-        .education-info p {
-            color: #555;
-            font-size: 1.05em;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .skill-category {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 20px;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .skill-category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .skill-category h3 {
-            color: #764ba2;
-            margin-bottom: 12px;
-            font-size: 1.1em;
-        }
-
-        .skill-category ul {
-            list-style: none;
-        }
-
-        .skill-category li {
-            padding: 5px 0;
-            color: #555;
+        /* Education Section */
+        .education-block {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
             position: relative;
-            padding-left: 20px;
         }
 
-        .skill-category li::before {
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .education-header h3 {
+            color: var(--primary-dark);
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .date {
+            color: var(--text-light);
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .degree {
+            font-size: 1.05em;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .cgpa {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* Experience Section */
+        .experience-block {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #10b981;
+            margin-bottom: 20px;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .experience-header h3 {
+            color: #065f46;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .experience-block ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .experience-block li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-dark);
+        }
+
+        .experience-block li::before {
             content: '▹';
             position: absolute;
             left: 0;
-            color: #764ba2;
+            color: #10b981;
             font-weight: bold;
+            font-size: 1.2em;
         }
 
-        .projects {
-            margin-top: 20px;
-        }
-
+        /* Projects Section */
         .project-card {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid #667eea;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #f59e0b;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .project-card:hover {
-            transform: translateX(10px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
-        .project-card h3 {
-            color: #667eea;
-            margin-bottom: 10px;
+        .project-header {
+            margin-bottom: 15px;
+        }
+
+        .project-header h3 {
+            color: #92400e;
             font-size: 1.3em;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
 
-        .project-card p {
-            color: #555;
-            line-height: 1.6;
+        .tech-stack {
+            color: #78350f;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-bottom: 15px;
+            font-weight: 500;
         }
 
+        .project-card ul {
+            list-style: none;
+        }
+
+        .project-card li {
+            padding: 6px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-dark);
+        }
+
+        .project-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #f59e0b;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #ec4899;
+        }
+
+        .skill-card h3 {
+            color: #9f1239;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .skill-card p {
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Extra-curriculars Section */
+        .activity-block {
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid var(--secondary);
+            margin-bottom: 25px;
+        }
+
+        .activity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .activity-header h3 {
+            color: #5b21b6;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .role {
+            color: var(--text-dark);
+            font-size: 1.05em;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .activity-block ul {
+            list-style: none;
+        }
+
+        .activity-block li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-dark);
+        }
+
+        .activity-block li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Footer */
         .footer {
-            background: #2d3748;
+            background: var(--text-dark);
             color: white;
             text-align: center;
             padding: 30px;
-            font-size: 0.9em;
         }
 
         .footer p {
             opacity: 0.8;
+            font-size: 0.95em;
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
             h1 {
-                font-size: 2em;
+                font-size: 2.5em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
             }
 
             .header {
-                padding: 40px 20px;
+                padding: 40px 25px;
             }
 
             .content {
-                padding: 30px 20px;
+                padding: 30px 25px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 12px;
             }
 
             .skills-grid {
@@ -213,83 +401,151 @@
             h2 {
                 font-size: 1.6em;
             }
+
+            .education-header,
+            .experience-header,
+            .activity-header {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <header class="header">
-            <h1>VARAD ALSHI</h1>
-            <p class="tagline">Computer Science Engineering Student | AI & ML Enthusiast</p>
+            <div class="header-content">
+                <h1>VARAD ALSHI</h1>
+                <p class="subtitle">Computer Science Engineering Student | Data Science & ML Enthusiast</p>
+                <div class="contact-info">
+                    <div class="contact-item">8421828974</div>
+                    <div class="contact-item">varadalshi7@gmail.com</div>
+                    <div class="contact-item">linkedin.com/in/varadalshi</div>
+                    <div class="contact-item">github.com/VaradCodes31</div>
+                </div>
+            </div>
         </header>
 
+        <!-- Main Content -->
         <div class="content">
+            <!-- Education Section -->
             <section class="section">
                 <h2>Education</h2>
-                <div class="education-info">
-                    <h3>MIT World Peace University</h3>
-                    <p><strong>Bachelor of Technology in Computer Science Engineering</strong></p>
-                    <p>Currently in Third Year</p>
+                <div class="education-block">
+                    <div class="education-header">
+                        <h3>Dr. Vishwanath Karad MIT World Peace University</h3>
+                        <span class="date">June 2023 – Present</span>
+                    </div>
+                    <p class="degree">Bachelor of Technology in Computer Science</p>
+                    <p style="color: #6b7280; margin-bottom: 5px;">Pune, Maharashtra, India</p>
+                    <span class="cgpa">CGPA: 8.68</span>
                 </div>
             </section>
 
+            <!-- Experience Section -->
             <section class="section">
-                <h2>Skills & Expertise</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>Programming Languages</h3>
-                        <ul>
-                            <li>Python</li>
-                            <li>C</li>
-                            <li>C++</li>
-                            <li>Java</li>
-                        </ul>
+                <h2>Experience</h2>
+                <div class="experience-block">
+                    <div class="experience-header">
+                        <h3>Finlatics</h3>
+                        <span class="date">Feb 2025 – April 2025</span>
                     </div>
-                    <div class="skill-category">
-                        <h3>Database Systems</h3>
-                        <ul>
-                            <li>MySQL</li>
-                            <li>MongoDB</li>
-                            <li>SQLite</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>AI & Data Technologies</h3>
-                        <ul>
-                            <li>Artificial Intelligence</li>
-                            <li>Machine Learning</li>
-                            <li>Explainable AI</li>
-                            <li>Big Data Tools</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Emerging Technologies</h3>
-                        <ul>
-                            <li>Blockchain Technology</li>
-                        </ul>
-                    </div>
+                    <p class="role">Data Science and Machine Learning Work Experience Program</p>
+                    <ul>
+                        <li>Completed the Finlatics Data Science with Python program from Feb to Apr 2025.</li>
+                        <li>Worked on data analysis projects translating business goals into data-driven solutions.</li>
+                        <li>Used Python and statistical methods to extract insights from complex datasets.</li>
+                        <li>Contributed to decision-making through critical thinking and innovative problem-solving.</li>
+                    </ul>
                 </div>
             </section>
 
+            <!-- Projects Section -->
             <section class="section">
                 <h2>Projects</h2>
-                <div class="projects">
-                    <div class="project-card">
-                        <h3>Movie Success Prediction and Recommendation System</h3>
-                        <p>Developed a comprehensive system that predicts movie success metrics and provides personalized recommendations using machine learning algorithms and data analysis techniques.</p>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Movie Success Prediction and Recommendation Engine</h3>
+                        <p class="tech-stack">Python, Scikit-learn, XGBoost, LightGBM, Transformers</p>
                     </div>
-                    <div class="project-card">
-                        <h3>Customer Churn with Explainability</h3>
-                        <p>Created a customer churn prediction model with integrated explainability features, enabling businesses to understand the factors driving customer attrition and make data-driven retention decisions.</p>
+                    <ul>
+                        <li>Built an end-to-end ML and NLP system using TMDB data (200+ movies, 10K+ API calls) to predict movie success and deliver personalized recommendations.</li>
+                        <li>Engineered 55+ features and trained multiple models achieving 85% accuracy for high-rated films and 78% for profitability prediction.</li>
+                        <li>Implemented Sentence-BERT-based similarity achieving 0.82 accuracy for content recommendations and genre discovery.</li>
+                        <li>Deployed an interactive Streamlit dashboard (<2s response) providing insights that reduce production risk by 45% and optimize investment strategies.</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Customer Churn Prediction and Retention System</h3>
+                        <p class="tech-stack">Python, Scikit-learn, Streamlit, SHAP</p>
                     </div>
-                    <div class="project-card">
-                        <h3>Stock-News Correlation System using Kafka and ML Models</h3>
-                        <p>Built a real-time data processing system using Apache Kafka to analyze correlations between news events and stock market movements, leveraging machine learning models for predictive insights.</p>
+                    <ul>
+                        <li>Engineered a full-stack ML pipeline using the IBM Telco dataset (7K+ records, 21 features) to predict customer churn with 79% accuracy and an F1-score of 0.81.</li>
+                        <li>Performed feature-engineering, hyperparameter tuning, and model evaluation across Logistic Regression, Random Forest and XGBoost classifiers.</li>
+                        <li>Integrated SHAP explainability to identify high-impact churn drivers, improving interpretability and model trust.</li>
+                        <li>Deployed a Streamlit dashboard with real-time risk scoring and retention recommendations, demonstrating end-to-end MLOps implementation.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Technical Skills Section -->
+            <section class="section">
+                <h2>Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h3>Languages</h3>
+                        <p>Java (basics), Python, C/C++, SQL (MySQL), R, MongoDB</p>
                     </div>
+                    <div class="skill-card">
+                        <h3>Frameworks</h3>
+                        <p>Flask, FastAPI</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Developer Tools</h3>
+                        <p>Git, VS Code, Visual Studio, PyCharm, IntelliJ, Eclipse, MongoDB Compass, MongoDB Atlas</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Libraries & Visualization</h3>
+                        <p>Pandas, NumPy, Matplotlib, Seaborn, Streamlit, Tableau</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Extra-curriculars Section -->
+            <section class="section">
+                <h2>Extra-Curriculars</h2>
+                
+                <div class="activity-block">
+                    <div class="activity-header">
+                        <h3>Google Developer Groups On Campus (GDGoC)</h3>
+                        <span class="date">Nov 2023 - Present</span>
+                    </div>
+                    <p class="role">MIT World Peace University, Pune</p>
+                    <ul>
+                        <li>Leading the Design and Content Team since June 2025, overseeing technical communication and visual branding initiatives for GDGoC.</li>
+                        <li>Creating engaging technical and developer-focused content for the past two years, contributing to community learning and visibility.</li>
+                        <li>Authored and published posts on the club's official social media platforms, driving higher engagement and outreach among student developers.</li>
+                        <li>Volunteered at large-scale events including WOW Pune, a city wide developer conference, supporting content and coordination efforts.</li>
+                    </ul>
+                </div>
+
+                <div class="activity-block">
+                    <div class="activity-header">
+                        <h3>MITWPU's Career Development Centre (CDC)</h3>
+                        <span class="date">Feb 2025 – Present</span>
+                    </div>
+                    <ul>
+                        <li>Contributed to student-training and upskilling initiatives as an active member of the Career Development Centre, enhancing employability and career readiness.</li>
+                        <li>Organized and represented the university at a career fair featuring 15+ UK Universities, connecting students to global opportunities and earning a letter of recommendation for outstanding contribution.</li>
+                    </ul>
                 </div>
             </section>
         </div>
 
+        <!-- Footer -->
         <footer class="footer">
             <p>&copy; 2026 Varad Alshi. All rights reserved.</p>
         </footer>
