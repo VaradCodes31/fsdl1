@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Registration Form - JavaScript Validation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Error styling */
+        .error {
+            border-color: red !important;
+            background-color: #ffe6e6;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Success styling */
+        .success {
+            border-color: green !important;
+            background-color: #e6ffe6;
+        }
+
+        /* Submit button */
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Success message */
+        .success-box {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border: 2px solid #c3e6cb;
+            display: none;
+            text-align: center;
+        }
+
+        .success-box.show {
+            display: block;
+        }
+
+        /* Info text */
+        .info-text {
+            font-size: 14px;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        .required {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Registration Form</h1>
+        
+        <form id="registrationForm">
+            <!-- Username Field -->
+            <div class="form-group">
+                <label for="username">Username <span class="required">*</span></label>
+                <input type="text" id="username" name="username" placeholder="Enter username">
+                <p class="info-text">Must be 3-15 characters, letters and numbers only</p>
+                <p class="error-message" id="usernameError"></p>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+                <p class="error-message" id="emailError"></p>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="password">Password <span class="required">*</span></label>
+                <input type="password" id="password" name="password" placeholder="Enter password">
+                <p class="info-text">Minimum 8 characters, include uppercase, lowercase, and number</p>
+                <p class="error-message" id="passwordError"></p>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password">
+                <p class="error-message" id="confirmPasswordError"></p>
+            </div>
+
+            <!-- Age Field -->
+            <div class="form-group">
+                <label for="age">Age <span class="required">*</span></label>
+                <input type="number" id="age" name="age" placeholder="Enter your age">
+                <p class="info-text">Must be 18 or older</p>
+                <p class="error-message" id="ageError"></p>
+            </div>
+
+            <!-- Phone Number Field -->
+            <div class="form-group">
+                <label for="phone">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="10-digit phone number">
+                <p class="error-message" id="phoneError"></p>
+            </div>
+
+            <!-- Gender Field -->
+            <div class="form-group">
+                <label for="gender">Gender <span class="required">*</span></label>
+                <select id="gender" name="gender">
+                    <option value="">-- Select Gender --</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <p class="error-message" id="genderError"></p>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Register</button>
+
+            <!-- Success Message -->
+            <div class="success-box" id="successBox">
+                ✓ Registration Successful! Welcome aboard!
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript Code -->
+    <script>
+        // Get form element
+        const form = document.getElementById('registrationForm');
+
+        // Add submit event listener
+        form.addEventListener('submit', function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+
+            // Call validation function
+            if (validateForm()) {
+                // If validation passes, show success message
+                showSuccess();
+            }
+        });
+
+        // Main validation function
+        function validateForm() {
+            // Reset all errors first
+            clearErrors();
+
+            // Get all input values
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const age = document.getElementById('age').value;
+            const phone = document.getElementById('phone').value.trim();
+            const gender = document.getElementById('gender').value;
+
+            let isValid = true;
+
+            // Validate Username
+            if (username === '') {
+                showError('username', 'Username is required');
+                isValid = false;
+            } else if (username.length < 3 || username.length > 15) {
+                showError('username', 'Username must be 3-15 characters');
+                isValid = false;
+            } else if (!/^[a-zA-Z0-9]+$/.test(username)) {
+                showError('username', 'Username can only contain letters and numbers');
+                isValid = false;
+            } else {
+                markSuccess('username');
+            }
+
+            // Validate Email
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (email === '') {
+                showError('email', 'Email is required');
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                showError('email', 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                markSuccess('email');
+            }
+
+            // Validate Password
+            if (password === '') {
+                showError('password', 'Password is required');
+                isValid = false;
+            } else if (password.length < 8) {
+                showError('password', 'Password must be at least 8 characters');
+                isValid = false;
+            } else if (!/[A-Z]/.test(password)) {
+                showError('password', 'Password must contain at least one uppercase letter');
+                isValid = false;
+            } else if (!/[a-z]/.test(password)) {
+                showError('password', 'Password must contain at least one lowercase letter');
+                isValid = false;
+            } else if (!/[0-9]/.test(password)) {
+                showError('password', 'Password must contain at least one number');
+                isValid = false;
+            } else {
+                markSuccess('password');
+            }
+
+            // Validate Confirm Password
+            if (confirmPassword === '') {
+                showError('confirmPassword', 'Please confirm your password');
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                showError('confirmPassword', 'Passwords do not match');
+                isValid = false;
+            } else {
+                markSuccess('confirmPassword');
+            }
+
+            // Validate Age
+            if (age === '') {
+                showError('age', 'Age is required');
+                isValid = false;
+            } else if (age < 18) {
+                showError('age', 'You must be at least 18 years old');
+                isValid = false;
+            } else if (age > 120) {
+                showError('age', 'Please enter a valid age');
+                isValid = false;
+            } else {
+                markSuccess('age');
+            }
+
+            // Validate Phone Number
+            const phonePattern = /^[0-9]{10}$/;
+            if (phone === '') {
+                showError('phone', 'Phone number is required');
+                isValid = false;
+            } else if (!phonePattern.test(phone)) {
+                showError('phone', 'Phone number must be exactly 10 digits');
+                isValid = false;
+            } else {
+                markSuccess('phone');
+            }
+
+            // Validate Gender
+            if (gender === '') {
+                showError('gender', 'Please select your gender');
+                isValid = false;
+            } else {
+                markSuccess('gender');
+            }
+
+            return isValid;
+        }
+
+        // Function to show error
+        function showError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(fieldId + 'Error');
+            
+            field.classList.add('error');
+            field.classList.remove('success');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+        }
+
+        // Function to mark field as success
+        function markSuccess(fieldId) {
+            const field = document.getElementById(fieldId);
+            field.classList.add('success');
+            field.classList.remove('error');
+        }
+
+        // Function to clear all errors
+        function clearErrors() {
+            const errorMessages = document.querySelectorAll('.error-message');
+            const inputs = document.querySelectorAll('input, select');
+
+            errorMessages.forEach(function(error) {
+                error.classList.remove('show');
+                error.textContent = '';
+            });
+
+            inputs.forEach(function(input) {
+                input.classList.remove('error');
+                input.classList.remove('success');
+            });
+        }
+
+        // Function to show success message
+        function showSuccess() {
+            const successBox = document.getElementById('successBox');
+            successBox.classList.add('show');
+
+            // Get form data for demonstration
+            const formData = {
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                age: document.getElementById('age').value,
+                phone: document.getElementById('phone').value,
+                gender: document.getElementById('gender').value
+            };
+
+            console.log('Form submitted successfully!');
+            console.log('User Data:', formData);
+
+            // Reset form after 2 seconds
+            setTimeout(function() {
+                form.reset();
+                clearErrors();
+                successBox.classList.remove('show');
+            }, 3000);
+        }
+
+        // Real-time validation on input
+        const allInputs = document.querySelectorAll('input, select');
+        allInputs.forEach(function(input) {
+            input.addEventListener('blur', function() {
+                // Only validate if field has a value
+                if (this.value.trim() !== '') {
+                    validateSingleField(this.id);
+                }
+            });
+
+            // Clear error on typing
+            input.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    this.classList.remove('error');
+                    const errorElement = document.getElementById(this.id + 'Error');
+                    if (errorElement) {
+                        errorElement.classList.remove('show');
+                    }
+                }
+            });
+        });
+
+        // Function to validate single field
+        function validateSingleField(fieldId) {
+            const field = document.getElementById(fieldId);
+            const value = field.value.trim();
+
+            switch(fieldId) {
+                case 'username':
+                    if (value.length < 3 || value.length > 15) {
+                        showError('username', 'Username must be 3-15 characters');
+                    } else if (!/^[a-zA-Z0-9]+$/.test(value)) {
+                        showError('username', 'Username can only contain letters and numbers');
+                    } else {
+                        markSuccess('username');
+                    }
+                    break;
+
+                case 'email':
+                    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!emailPattern.test(value)) {
+                        showError('email', 'Please enter a valid email address');
+                    } else {
+                        markSuccess('email');
+                    }
+                    break;
+
+                case 'password':
+                    if (value.length < 8) {
+                        showError('password', 'Password must be at least 8 characters');
+                    } else if (!/[A-Z]/.test(value) || !/[a-z]/.test(value) || !/[0-9]/.test(value)) {
+                        showError('password', 'Password must contain uppercase, lowercase, and number');
+                    } else {
+                        markSuccess('password');
+                    }
+                    break;
+
+                case 'confirmPassword':
+                    const password = document.getElementById('password').value;
+                    if (value !== password) {
+                        showError('confirmPassword', 'Passwords do not match');
+                    } else {
+                        markSuccess('confirmPassword');
+                    }
+                    break;
+
+                case 'age':
+                    if (value < 18 || value > 120) {
+                        showError('age', 'Age must be between 18 and 120');
+                    } else {
+                        markSuccess('age');
+                    }
+                    break;
+
+                case 'phone':
+                    const phonePattern = /^[0-9]{10}$/;
+                    if (!phonePattern.test(value)) {
+                        showError('phone', 'Phone number must be exactly 10 digits');
+                    } else {
+                        markSuccess('phone');
+                    }
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
