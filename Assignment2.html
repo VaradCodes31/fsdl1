@@ -354,138 +354,6 @@
             font-size: 1.2em;
         }
 
-        /* Contact Form Section */
-        .contact-section {
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-            padding: 40px;
-            border-radius: 12px;
-            border-left: 5px solid var(--accent);
-        }
-
-        .contact-form {
-            margin-top: 30px;
-            max-width: 700px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-dark);
-            font-size: 0.95em;
-        }
-
-        label .required {
-            color: #dc2626;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1em;
-            font-family: inherit;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            background: white;
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        /* Error styling */
-        .error-message {
-            display: block;
-            color: #dc2626;
-            font-size: 0.875em;
-            margin-top: 5px;
-            min-height: 20px;
-            font-weight: 500;
-        }
-
-        input.error,
-        select.error,
-        textarea.error {
-            border-color: #dc2626;
-            background-color: #fef2f2;
-        }
-
-        /* Success message */
-        .success-message {
-            display: none;
-            background: #dcfce7;
-            color: #166534;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: center;
-            font-weight: 500;
-            border: 2px solid #86efac;
-        }
-
-        .success-message.show {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Submit button */
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            font-family: inherit;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
         /* Footer */
         .footer {
             background: var(--text-dark);
@@ -539,10 +407,6 @@
             .activity-header {
                 flex-direction: column;
             }
-
-            .contact-section {
-                padding: 25px;
-            }
         }
     </style>
 </head>
@@ -564,6 +428,7 @@
 
         <!-- Main Content -->
         <div class="content">
+            <!-- Education Section -->
             <section class="section">
                 <h2>Education</h2>
                 <div class="education-block">
@@ -577,6 +442,7 @@
                 </div>
             </section>
 
+            <!-- Experience Section -->
             <section class="section">
                 <h2>Experience</h2>
                 <div class="experience-block">
@@ -594,6 +460,7 @@
                 </div>
             </section>
 
+            <!-- Projects Section -->
             <section class="section">
                 <h2>Projects</h2>
                 
@@ -624,6 +491,7 @@
                 </div>
             </section>
 
+            <!-- Technical Skills Section -->
             <section class="section">
                 <h2>Technical Skills</h2>
                 <div class="skills-grid">
@@ -646,6 +514,7 @@
                 </div>
             </section>
 
+            <!-- Extra-curriculars Section -->
             <section class="section">
                 <h2>Extra-Curriculars</h2>
                 
@@ -674,67 +543,6 @@
                     </ul>
                 </div>
             </section>
-
-            <!-- Contact Form Section -->
-            <section class="section">
-                <div class="contact-section">
-                    <h2>Get In Touch</h2>
-                    <p style="color: #6b7280; margin-bottom: 10px;">Have a project in mind or want to discuss opportunities? Feel free to reach out!</p>
-                    
-                    <form id="contactForm" class="contact-form">
-                        <div class="form-group">
-                            <label for="name">Full Name <span class="required">*</span></label>
-                            <input 
-                                type="text" 
-                                id="name" 
-                                name="name" 
-                                placeholder="Enter your name"
-                            >
-                            <span class="error-message" id="nameError"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email Address <span class="required">*</span></label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                placeholder="your.email@example.com"
-                            >
-                            <span class="error-message" id="emailError"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="subject">Subject <span class="required">*</span></label>
-                            <select id="subject" name="subject">
-                                <option value="">-- Select a subject --</option>
-                                <option value="job">Job Opportunity</option>
-                                <option value="project">Project Collaboration</option>
-                                <option value="internship">Internship Opportunity</option>
-                                <option value="freelance">Freelance Work</option>
-                                <option value="other">Other</option>
-                            </select>
-                            <span class="error-message" id="subjectError"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Message <span class="required">*</span></label>
-                            <textarea 
-                                id="message" 
-                                name="message" 
-                                placeholder="Write your message here..."
-                            ></textarea>
-                            <span class="error-message" id="messageError"></span>
-                        </div>
-
-                        <button type="submit" class="submit-btn">Send Message</button>
-                        
-                        <div class="success-message" id="successMessage">
-                            ✓ Message sent successfully! I'll get back to you soon.
-                        </div>
-                    </form>
-                </div>
-            </section>
         </div>
 
         <!-- Footer -->
@@ -742,210 +550,5 @@
             <p>&copy; 2026 Varad Alshi. All rights reserved.</p>
         </footer>
     </div>
-
-    <!-- JavaScript for Form Validation -->
-    <script>
-        // Form submission handler
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent default form submission
-            
-            clearErrors();
-            
-            // Get form values
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value.trim();
-            
-            let isValid = true;
-            
-            // Validate Name
-            if (name === '') {
-                showError('nameError', 'Name is required');
-                markFieldError('name');
-                isValid = false;
-            } else if (name.length < 2) {
-                showError('nameError', 'Name must be at least 2 characters long');
-                markFieldError('name');
-                isValid = false;
-            } else if (!/^[a-zA-Z\s]+$/.test(name)) {
-                showError('nameError', 'Name should only contain letters and spaces');
-                markFieldError('name');
-                isValid = false;
-            }
-            
-            // Validate Email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (email === '') {
-                showError('emailError', 'Email is required');
-                markFieldError('email');
-                isValid = false;
-            } else if (!emailRegex.test(email)) {
-                showError('emailError', 'Please enter a valid email address (e.g., name@example.com)');
-                markFieldError('email');
-                isValid = false;
-            }
-            
-            // Validate Subject
-            if (subject === '') {
-                showError('subjectError', 'Please select a subject');
-                markFieldError('subject');
-                isValid = false;
-            }
-            
-            // Validate Message
-            if (message === '') {
-                showError('messageError', 'Message is required');
-                markFieldError('message');
-                isValid = false;
-            } else if (message.length < 10) {
-                showError('messageError', 'Message must be at least 10 characters long');
-                markFieldError('message');
-                isValid = false;
-            } else if (message.length > 1000) {
-                showError('messageError', 'Message must not exceed 1000 characters');
-                markFieldError('message');
-                isValid = false;
-            }
-            
-            // If all validations pass
-            if (isValid) {
-                // Show success message
-                const successMsg = document.getElementById('successMessage');
-                successMsg.classList.add('show');
-                
-                // Log form data (in production, you'd send this to a server)
-                console.log('Form submitted successfully with data:', {
-                    name: name,
-                    email: email,
-                    subject: subject,
-                    message: message,
-                    timestamp: new Date().toISOString()
-                });
-                
-                // Reset form
-                document.getElementById('contactForm').reset();
-                
-                // Hide success message after 5 seconds
-                setTimeout(function() {
-                    successMsg.classList.remove('show');
-                }, 5000);
-                
-                // Scroll to success message
-                successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            } else {
-                // Scroll to first error
-                const firstError = document.querySelector('.error');
-                if (firstError) {
-                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    firstError.focus();
-                }
-            }
-        });
-        
-        // Helper function to show error message
-        function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
-        }
-        
-        // Helper function to mark field with error styling
-        function markFieldError(fieldId) {
-            document.getElementById(fieldId).classList.add('error');
-        }
-        
-        // Helper function to clear all errors
-        function clearErrors() {
-            // Clear error messages
-            const errorMessages = document.querySelectorAll('.error-message');
-            errorMessages.forEach(function(error) {
-                error.textContent = '';
-            });
-            
-            // Remove error styling from fields
-            const errorFields = document.querySelectorAll('.error');
-            errorFields.forEach(function(field) {
-                field.classList.remove('error');
-            });
-        }
-        
-        // Real-time validation - removes error as user types
-        const formFields = document.querySelectorAll('input, select, textarea');
-        formFields.forEach(function(field) {
-            field.addEventListener('input', function() {
-                // If field has error class, remove it and clear error message
-                if (this.classList.contains('error')) {
-                    this.classList.remove('error');
-                    const errorId = this.id + 'Error';
-                    const errorElement = document.getElementById(errorId);
-                    if (errorElement) {
-                        errorElement.textContent = '';
-                    }
-                }
-            });
-            
-            // Also handle blur event for better UX
-            field.addEventListener('blur', function() {
-                // Validate individual field on blur
-                validateFieldOnBlur(this);
-            });
-        });
-        
-        // Function to validate individual field on blur
-        function validateFieldOnBlur(field) {
-            const fieldId = field.id;
-            const value = field.value.trim();
-            
-            // Clear any existing error first
-            field.classList.remove('error');
-            const errorElement = document.getElementById(fieldId + 'Error');
-            if (errorElement) {
-                errorElement.textContent = '';
-            }
-            
-            // Only validate if field has been touched and has value
-            if (value !== '') {
-                switch(fieldId) {
-                    case 'name':
-                        if (value.length < 2) {
-                            showError('nameError', 'Name must be at least 2 characters long');
-                            markFieldError('name');
-                        } else if (!/^[a-zA-Z\s]+$/.test(value)) {
-                            showError('nameError', 'Name should only contain letters and spaces');
-                            markFieldError('name');
-                        }
-                        break;
-                    case 'email':
-                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!emailRegex.test(value)) {
-                            showError('emailError', 'Please enter a valid email address');
-                            markFieldError('email');
-                        }
-                        break;
-                    case 'message':
-                        if (value.length < 10) {
-                            showError('messageError', 'Message must be at least 10 characters long');
-                            markFieldError('message');
-                        } else if (value.length > 1000) {
-                            showError('messageError', 'Message must not exceed 1000 characters');
-                            markFieldError('message');
-                        }
-                        break;
-                }
-            }
-        }
-        
-        // Character counter for message field (optional enhancement)
-        const messageField = document.getElementById('message');
-        messageField.addEventListener('input', function() {
-            const charCount = this.value.length;
-            const maxChars = 1000;
-            
-            // You can add a character counter display here if desired
-            if (charCount > maxChars) {
-                showError('messageError', `Message exceeds maximum length (${charCount}/${maxChars} characters)`);
-                markFieldError('message');
-            }
-        });
-    </script>
 </body>
 </html>
