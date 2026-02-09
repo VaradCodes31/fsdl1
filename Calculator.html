@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #8b7fd6 0%, #6b5fb8 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .calculator {
+            background: #4a4a4a;
+            border-radius: 40px;
+            padding: 60px 45px 50px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            max-width: 400px;
+        }
+
+        .display {
+            background: #4a4a4a;
+            color: white;
+            font-size: 72px;
+            font-weight: 300;
+            text-align: right;
+            padding: 40px 30px;
+            margin-bottom: 40px;
+            border-radius: 24px;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            overflow: hidden;
+            word-break: break-all;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 82px);
+            grid-template-rows: repeat(4, 82px);
+            gap: 16px;
+            justify-content: center;
+        }
+
+        button {
+            background: #5a5a5a;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 32px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 82px;
+            height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .operator {
+            background: #8b7fd6;
+            font-size: 36px;
+        }
+
+        .operator:hover {
+            background: #9c8ee7;
+        }
+
+        .ce {
+            color: #8b7fd6;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .number {
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button class="number" data-number="7">7</button>
+            <button class="number" data-number="8">8</button>
+            <button class="number" data-number="9">9</button>
+            <button class="operator" data-operator="×">×</button>
+            
+            <button class="number" data-number="4">4</button>
+            <button class="number" data-number="5">5</button>
+            <button class="number" data-number="6">6</button>
+            <button class="operator" data-operator="−">−</button>
+            
+            <button class="number" data-number="1">1</button>
+            <button class="number" data-number="2">2</button>
+            <button class="number" data-number="3">3</button>
+            <button class="operator" data-operator="+">+</button>
+            
+            <button class="ce" id="clear">CE</button>
+            <button class="number" data-number="0">0</button>
+            <button class="operator" id="equals">=</button>
+            <button class="operator" data-operator="÷">÷</button>
+        </div>
+    </div>
+
+    <script>
+        class Calculator {
+            constructor() {
+                this.displayElement = document.getElementById('display');
+                this.currentValue = '0';
+                this.previousValue = null;
+                this.operation = null;
+                this.shouldResetDisplay = false;
+                
+                this.initializeButtons();
+                this.updateDisplay();
+            }
+
+            initializeButtons() {
+                // Number buttons
+                document.querySelectorAll('.number').forEach(button => {
+                    button.addEventListener('click', () => {
+                        this.inputNumber(button.dataset.number);
+                    });
+                });
+
+                // Operator buttons
+                document.querySelectorAll('.operator[data-operator]').forEach(button => {
+                    button.addEventListener('click', () => {
+                        this.inputOperator(button.dataset.operator);
+                    });
+                });
+
+                // Clear button
+                document.getElementById('clear').addEventListener('click', () => {
+                    this.clear();
+                });
+
+                // Equals button
+                document.getElementById('equals').addEventListener('click', () => {
+                    this.calculate();
+                });
+            }
+
+            inputNumber(number) {
+                if (this.shouldResetDisplay) {
+                    this.currentValue = number;
+                    this.shouldResetDisplay = false;
+                } else {
+                    if (this.currentValue === '0') {
+                        this.currentValue = number;
+                    } else {
+                        this.currentValue += number;
+                    }
+                }
+                this.updateDisplay();
+            }
+
+            inputOperator(operator) {
+                if (this.operation !== null && !this.shouldResetDisplay) {
+                    this.calculate();
+                }
+                
+                this.previousValue = this.currentValue;
+                this.operation = operator;
+                this.shouldResetDisplay = true;
+            }
+
+            calculate() {
+                if (this.operation === null || this.previousValue === null) {
+                    return;
+                }
+
+                const prev = parseFloat(this.previousValue);
+                const current = parseFloat(this.currentValue);
+                let result;
+
+                switch (this.operation) {
+                    case '+':
+                        result = prev + current;
+                        break;
+                    case '−':
+                        result = prev - current;
+                        break;
+                    case '×':
+                        result = prev * current;
+                        break;
+                    case '÷':
+                        if (current === 0) {
+                            this.currentValue = 'Error';
+                            this.updateDisplay();
+                            this.clear();
+                            return;
+                        }
+                        result = prev / current;
+                        break;
+                    default:
+                        return;
+                }
+
+                // Format result to avoid floating point issues
+                this.currentValue = String(Math.round(result * 100000000) / 100000000);
+                this.operation = null;
+                this.previousValue = null;
+                this.shouldResetDisplay = true;
+                this.updateDisplay();
+            }
+
+            clear() {
+                this.currentValue = '0';
+                this.previousValue = null;
+                this.operation = null;
+                this.shouldResetDisplay = false;
+                this.updateDisplay();
+            }
+
+            updateDisplay() {
+                this.displayElement.textContent = this.currentValue;
+            }
+        }
+
+        // Initialize calculator
+        const calculator = new Calculator();
+    </script>
+</body>
+</html>
